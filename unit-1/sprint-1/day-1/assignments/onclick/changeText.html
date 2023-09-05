@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="myname">abuzar shaikh</h1>
+    <button onclick="ChangeHeding()">change Name to saeed</button>
+    <button onclick="ChangeHeding2()">change Name to abuzar</button>
+    <hr />
+    <h1 id="headindName">Amitab bacchan</h1>
+    <button onclick="nameChange()">change Naame</button>
+  </body>
+</html>
+<script>
+  ChangeHeding = () => {
+    var heading = document.getElementById("myname");
+    console.log(heading.innerText);
+    heading.innerText = "abusaeed shaikh";
+  };
+  ChangeHeding2 = () => {
+    var heading2 = document.getElementById("myname");
+    console.log(heading2.innerText);
+    heading2.innerText = "abuzar shaikh";
+  };
+
+  nameChange = () => {
+    var names = document.getElementById("headindName");
+
+    if (names.innerText === "Amitab bacchan") {
+      names.innerText = "Rajnikant";
+    } else {
+      names.innerText = "Amitab bacchan";
+    }
+  };
+</script>

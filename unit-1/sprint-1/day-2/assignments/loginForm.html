@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login form</title>
+</head>
+<body>
+   <input type="text" placeholder="Enter name" id="inputName"> 
+   <input type="email" placeholder="Enter email" id="inputEmail">
+   <h1 id="gateName"></h1>
+   <h2 id="getemail"></h2>
+   <button>submit</button>
+   
+</body>
+</html>
+<script>
+    document.querySelector("button").addEventListener("click",GateData)
+ 
+    function GateData(){
+        var names=document.getElementById("inputName").value;
+        var emails=document.getElementById("inputEmail").value;
+        console.log(names,emails)
+        document.getElementById("gateName").innerText=names;
+        document.getElementById("getemail").textContent=emails
+    }
+</script>

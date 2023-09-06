@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>form tag</title>
+  </head>
+  <body>
+    <form>
+      <input type="text" placeholder="enter name" id="inputName" />
+      <input type="text" placeholder="enter email" id="inputEmail" />
+      <input type="submit" />
+    </form>
+    <h1 id="getName"></h1>
+    <h1 id="getEmail"></h1>
+  </body>
+</html>
+<script>
+    
+  document.addEventListener("submit", getDta);
+  function getDta() {
+    event.preventDefault();
+    var names = document.getElementById("inputName").value;
+    var emails = document.getElementById("inputEmail").value;
+    document.getElementById("getName").innerText = names;
+    document.getElementById("getEmail").textContent = emails;
+  }
+</script>

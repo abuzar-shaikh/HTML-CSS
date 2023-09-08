@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Management</title>
+    <style>
+      /* Write all necessery css here  */
+    </style>
+  </head>
+
+  <body>
+    <div id="create">
+      <h1>Add Products in Inventory</h1>
+      <form>
+        <input placeholder="Product Name" id="name" type="text" />
+        <select id="category">
+          <option value="">Product Catagory</option>
+          <option value="Grocery">Grocery</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Home Appliances">Home Appliances</option>
+        </select>
+        <input type="text" id="brand" placeholder="Brand" />
+        <input placeholder="Product Price" id="price" type="number" />
+        <select id="deliveredBy">
+          <option value="">Delivered By</option>
+          <option value="Plane">Plane</option>
+          <option value="Ship">Ship</option>
+          <option value="Delivery Van">Delivery Van</option>
+        </select>
+        <input type="submit" value="Add Inventory" />
+      </form>
+    </div>
+    <!-- This is the h1 tag for showing the total price  -->
+    <h1 id="total-price">Total Price:- <span>0</span></h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Catagory</th>
+          <th>Brand</th>
+          <th>Price</th>
+          <th>Delivered By</th>
+          <th>Price Segment</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Here you will append the data as tr-td when the form gets submitted  -->
+      </tbody>
+    </table>
+  </body>
+  <script>
+    // Write all necessery JS Here
+    document.querySelector("form").addEventListener("submit", submitform);
+    var arr = [];
+    var totalsum = 0;
+    function submitform() {
+      event.preventDefault();
+      var productName = document.getElementById("name").value;
+      var category = document.getElementById("category").value;
+      var brand = document.getElementById("brand").value;
+      var price = document.getElementById("price").value;
+      var deliveredBy = document.getElementById("deliveredBy").value;
+      if (
+        productName === "" ||
+        category === "" ||
+        brand === "" ||
+        price === "" ||
+        deliveredBy === ""
+      ) {
+        alert("fill all input field");
+      } else {
+        let obj = {
+          productName: productName,
+          category: category,
+          brand: brand,
+          price: price,
+          deliveredBy: deliveredBy,
+        };
+        arr.push(obj)
+        // console.log(arr)
+        MyDisplay(arr)
+        totalsum=totalsum+price
+        console.log(totalsum)
+        document.querySelector("span").textContent=totalsum
+      }
+    }
+function MyDisplay(arr){
+  document.querySelector("tbody").innerHTML=""
+  arr.map(function(elem,index){
+    var tr = document.createElement("tr");
+
+  var td1 = document.createElement("td");
+  td1.innerText = elem.productName;
+
+  var td2 = document.createElement("td");
+  td2.innerText = elem.category;
+
+  var td3 = document.createElement("td");
+  td3.innerText = elem.brand;
+
+  var td4 = document.createElement("td");
+  td4.innerText = elem.price;
+
+  var td5 = document.createElement("td");
+  td5.innerText = elem.deliveredBy;
+
+  var td6 = document.createElement("td");
+  if (elem.price >= 1000) {
+    td6.innerText = "Expensive";
+  } else {
+    td6.innerText = "Not-Expensive";
+  }
+
+  var td7 = document.createElement("td");
+  td7.innerText = "delete";
+  td7.addEventListener("click", function(){deleteData(elem,index)});
+
+  tr.append(td1, td2, td3, td4, td5, td6, td7);
+  document.querySelector("tbody").append(tr);
+  })
+}
+   
+
+    function deleteData(elem,index) {
+      // event.target.parentNode.remove();
+      var del=arr.splice(index,1)
+      totalsum=totalsum-elem.price
+      document.querySelector("span").innerText=totalsum
+      MyDisplay(arr)
+    }
+  </script>
+</html>

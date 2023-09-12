@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Management</title>
+    <style>
+      /* All necessery styles here  */
+    </style>
+  </head>
+  <body>
+    <div id="create">
+      <h1>Add Stock in Portfolio</h1>
+      <form>
+        <input placeholder="Company Name" id="name" type="text" />
+        <select id="category">
+          <option value="">Stock Category</option>
+          <option value="Large Cap">Large Cap</option>
+          <option value="Mid Cap">Mid Cap</option>
+          <option value="Small Cap">Small Cap</option>
+        </select>
+        <input type="text" id="sector" placeholder="Sector" />
+        <input placeholder="Stock Price" id="price" type="number" />
+        <input placeholder="Quantity" id="quantity" type="number" />
+        <label for="">Add Date:- </label>
+        <input type="date" id="addDate" />
+        <input type="submit" value="Add Stock" />
+      </form>
+    </div>
+    <h1 id="total-price">Total Price:- <span>0</span></h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Stock Name</th>
+          <th>Category</th>
+          <th>Sector</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total Cost</th>
+          <th>Add Date</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Append the rows here using JS  -->
+      </tbody>
+    </table>
+  </body>
+  <script>
+    // Write all necessery JS Here
+    document.querySelector("form").addEventListener("submit", submitform);
+
+    var array = [];
+    var totalSum = 0;
+
+    function submitform() {
+      event.preventDefault();
+
+      var name = document.getElementById("name").value;
+      var category = document.getElementById("category").value;
+      var sector = document.getElementById("sector").value;
+      var price = document.getElementById("price").value;
+      var quantity = document.getElementById("quantity").value;
+      var addDate = document.getElementById("addDate").value;
+
+      if (
+        name === "" ||
+        category === "" ||
+        sector === "" ||
+        price === "" ||
+        quantity === "" ||
+        addDate === ""
+      ) {
+        alert("fill all input fields");
+      } else {
+        let obj = {
+          name: name,
+          category: category,
+          sector: sector,
+          price: price,
+          quantity: quantity,
+          addDate: addDate,
+        };
+
+        array.push(obj);
+        console.log(array);
+        MyDisplay(array);
+        totalSum += price * +quantity;
+        console.log(totalSum);
+        document.querySelector("span").textContent = totalSum;
+      }
+    }
+
+    function MyDisplay(array) {
+      document.querySelector("tbody").innerHTML = "";
+      array.map(function (elem, index) {
+        var tr = document.createElement("tr");
+
+        var td1 = document.createElement("td");
+        td1.innerText = elem.name;
+
+        var td2 = document.createElement("td");
+        td2.innerText = elem.category;
+
+        var td3 = document.createElement("td");
+        td3.innerText = elem.sector;
+
+        var td4 = document.createElement("td");
+        td4.innerText = elem.price;
+
+        var td5 = document.createElement("td");
+        td5.innerText = elem.quantity;
+
+        var td6 = document.createElement("td");
+        td6.innerText = elem.price * elem.quantity;
+
+        var td7 = document.createElement("td");
+        td7.innerText = elem.addDate;
+
+        var td8 = document.createElement("td");
+        td8.innerText = "Delete";
+        td8.style.backgroundColor = "red";
+        td8.style.color = "white";
+        td8.addEventListener("click",function () {
+          deleteData(elem, index);
+        });
+
+        tr.append(td1, td2, td3, td4, td5, td6, td7, td8);
+        document.querySelector("tbody").append(tr);
+      });
+    }
+
+    function deleteData(elem, index) {
+      // event.target.parentNode.remove();
+      var dele = array.splice(index, 1);
+      totalSum -= +elem.price * +elem.quantity;
+      console.log(totalSum);
+      document.querySelector("span").innerText = totalSum;
+      MyDisplay(array);
+    }
+  </script>
+</html>

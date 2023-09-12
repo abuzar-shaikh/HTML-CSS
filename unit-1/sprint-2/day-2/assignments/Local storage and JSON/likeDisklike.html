@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <img
+      src="https://cdn.pixabay.com/photo/2017/09/25/13/12/puppy-2785074_1280.jpg"
+      style="height: 200px"
+    />
+    <p>like: <span id="likeId"></span></p>
+    <br />
+    <p>Dislike: <span id="DislikeId"></span></p>
+    <button id="likebtn">like</button>
+    <button id="dislikebtn">Dislike</button>
+  </body>
+</html>
+<script>
+  document.querySelector("#likebtn").addEventListener("click", likefun);
+
+  var likesum = localStorage.getItem("like") || 0;
+  document.querySelector("#likeId").textContent = likesum;
+  function likefun() {
+    likesum++;
+    console.log(likesum);
+    document.querySelector("#likeId").textContent = likesum;
+    localStorage.setItem("like", likesum);
+  }
+
+  document.querySelector("#dislikebtn").addEventListener("click", dislikefun);
+  dislikesum = localStorage.getItem("dislike") || 0;
+  document.querySelector("#DislikeId").textContent = dislikesum;
+  function dislikefun() {
+    dislikesum++;
+    console.log(dislikesum);
+    document.querySelector("#DislikeId").textContent = dislikesum;
+    localStorage.setItem("dislike", dislikesum);
+  }
+</script>

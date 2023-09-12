@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Masai Employee Records</title>
+  </head>
+  <body>
+    <!-- Use this form for taking the inputs  -->
+    <form>
+      <input placeholder="Name" type="text" id="name" />
+      <input placeholder="Employee ID" type="text" id="employee_id" />
+      <select id="department">
+        <option value="">Select Department</option>
+        <option value="HR">HR</option>
+        <option value="Finance">Finance</option>
+        <option value="Engineering">Engineering</option>
+      </select>
+      <input placeholder="Experience" type="number" id="experience" />
+      <input placeholder="Email" type="email" id="email" />
+      <input placeholder="Mobile No." type="number" id="mobile" />
+      <input type="submit" value="Submit" />
+    </form>
+
+    <!-- Use this select tag for filtering  -->
+    <select id="filter">
+      <option value="">Select Department</option>
+      <option value="HR">HR</option>
+      <option value="Finance">Finance</option>
+      <option value="Engineering">Engineering</option>
+    </select>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Employee ID</th>
+          <th>Department</th>
+          <th>Experience in Years</th>
+          <th>Email</th>
+          <th>Mobile No</th>
+          <th>Role</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Append Rows here using JS & DOM  -->
+      </tbody>
+    </table>
+  </body>
+  <script>
+    document.querySelector("form").addEventListener("submit", submitform);
+    var arr = [];
+    function submitform() {
+      event.preventDefault();
+
+      var name = document.getElementById("name").value;
+      var employee_id = document.getElementById("employee_id").value;
+      var department = document.getElementById("department").value;
+      var experience = document.getElementById("experience").value;
+      var email = document.getElementById("email").value;
+      var mobile = document.getElementById("mobile").value;
+      var filters = document.getElementById("filter").value;
+      if (
+        name === "" ||
+        employee_id === "" ||
+        department === "" ||
+        email === "" ||
+        mobile === ""
+      ) {
+        alert("fill data");
+      } else {
+        var obj = {
+          name: name,
+          employee_id: employee_id,
+          department: department,
+          experience: experience,
+          email: email,
+          mobile: mobile,
+          filters: filters,
+        };
+        arr.push(obj);
+        console.log(arr);
+        MyDisplay(arr);
+      }
+    }
+
+    function MyDisplay(arr) {
+      document.querySelector("tbody").innerHTML = "";
+
+      arr.map(function (elem, index) {
+        var tr = document.createElement("tr");
+
+        var td1 = document.createElement("td");
+        td1.innerText = elem.name;
+
+        var td2 = document.createElement("td");
+        td2.innerText = elem.employee_id;
+
+        var td3 = document.createElement("td");
+        td3.innerText = elem.department;
+
+        var td4 = document.createElement("td");
+        td4.innerText = elem.experience;
+
+        var td5 = document.createElement("td");
+        td5.innerText = elem.email;
+
+        var td7 = document.createElement("td");
+        td7.innerText = elem.mobile;
+
+        var td8 = document.createElement("td");
+        if (elem.experience > 5) {
+          td8.innerText = "Senior";
+        } else if (elem.experience > 2 && elem.experience < 5) {
+          td8.innerText = "Junior";
+        } else {
+          td8.innerText = "Fresher";
+        }
+
+        var td9 = document.createElement("td");
+        td9.innerText = "delete";
+        td9.style.backgroundColor = "red";
+        td9.style.color = "white";
+        td9.addEventListener("click", function () {
+          deletedata(elem, index);
+        });
+
+        tr.append(td1, td2, td3, td4, td5, td7, td8, td9);
+        document.querySelector("tbody").append(tr);
+      });
+    }
+
+    function deletedata(elem, index) {
+      var del = arr.splice(index, 1);
+
+      MyDisplay(arr);
+    }
+  </script>
+</html>

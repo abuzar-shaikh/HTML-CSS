@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta task="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <h1>TODO APP</h1>
+      <label for="">TASK task</label><br />
+      <input type="text" task="" id="task" placeholder="enter task" /><br />
+      <label for="">priority</label><br />
+      <select task="" id="priority">
+        <option value="">select priority</option>
+        <option value="higer">higer</option>
+        <option value="low">low</option></select
+      ><br /><br />
+      <input type="submit" />
+      <br /><br /><br /><br />
+      <hr />
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>task</th>
+          <th>priority</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- append hear -->
+      </tbody>
+    </table>
+  </body>
+</html>
+<script>
+  document.querySelector("form").addEventListener("submit", myTodo);
+
+  var todoArr = JSON.parse(localStorage.getItem("todo")) || [];
+  console.log(todoArr);
+  displayTodo();
+
+  function myTodo() {
+    event.preventDefault();
+    var task = document.getElementById("task").value;
+    var priority = document.getElementById("priority").value;
+
+    if (task === "" || priority === "") {
+      alert("enter details");
+    } else {
+      let obj = { task: task, priority: priority };
+      todoArr.push(obj);
+      localStorage.setItem("todo", JSON.stringify(todoArr));
+
+      displayTodo();
+    }
+  }
+
+  function displayTodo() {
+    document.querySelector("tbody").textContent = "";
+    todoArr.map(function (elem, index) {
+      var tr = document.createElement("tr");
+
+      var td1 = document.createElement("td");
+      td1.innerText = elem.task;
+
+      var td2 = document.createElement("td");
+      td2.textContent = elem.priority;
+
+      if (elem.priority === "higer") {
+        td2.style.backgroundColor = "red";
+      } else {
+        td2.style.backgroundColor = "green";
+      }
+
+      var td3 = document.createElement("td");
+      td3.innerText = "delete";
+      td3.addEventListener("click", function () {
+        DeleteTask(index);
+      });
+
+      tr.append(td1, td2, td3);
+      document.querySelector("tbody").append(tr);
+    });
+  }
+  function DeleteTask(index) {
+    var res = todoArr.splice(index, 1);
+    console.log(res);
+    localStorage.setItem("todo", JSON.stringify(todoArr));
+    displayTodo();
+  }
+</script>
